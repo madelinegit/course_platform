@@ -8,17 +8,47 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'data', 'credentials.json');
 
+// On Vercel, the filesystem is read-only between invocations.
+// If BLOB_READ_WRITE_TOKEN is set, use @vercel/blob; otherwise fall back to fs.
+const IS_VERCEL = !!process.env.VERCEL;
+let blob = null;
+if (IS_VERCEL && process.env.BLOB_READ_WRITE_TOKEN) {
+  blob = require('@vercel/blob');
+}
+const BLOB_PATHNAME = 'anpl/credentials.json';
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* ===== HELPERS ===== */
-function readCredentials() {
+async function readCredentials() {
+  if (blob) {
+    // Vercel Blob: fetch the stored JSON
+    try {
+      const { downloadUrl } = await blob.head(BLOB_PATHNAME);
+      const res = await fetch(downloadUrl);
+      return await res.json();
+    } catch {
+      // Blob not yet initialised — fall back to bundled file
+      const raw = fs.readFileSync(DATA_FILE, 'utf8');
+      return JSON.parse(raw);
+    }
+  }
   const raw = fs.readFileSync(DATA_FILE, 'utf8');
   return JSON.parse(raw);
 }
 
-function writeCredentials(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+async function writeCredentials(data) {
+  const json = JSON.stringify(data, null, 2);
+  if (blob) {
+    await blob.put(BLOB_PATHNAME, json, {
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false
+    });
+    return;
+  }
+  fs.writeFileSync(DATA_FILE, json, 'utf8');
 }
 
 function hashPassword(password) {
@@ -69,67 +99,71 @@ app.post('/api/auth/admin', (req, res) => {
 });
 
 /* ===== PUBLIC CREDENTIAL LOOKUP ===== */
-app.get('/api/credentials/:id', (req, res) => {
-  const { id } = req.params;
-  const { credentials } = readCredentials();
-  const found = credentials.find(c => c.id.toUpperCase() === id.toUpperCase());
-  if (!found) return res.status(404).json({ error: 'Not found' });
-  return res.json(found);
+app.get('/api/credentials/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { credentials } = await readCredentials();
+    const found = credentials.find(c => c.id.toUpperCase() === id.toUpperCase());
+    if (!found) return res.status(404).json({ error: 'Not found' });
+    return res.json(found);
+  } catch (e) { res.status(500).json({ error: 'Server error' }); }
 });
 
 /* ===== ADMIN: LIST ALL ===== */
-app.get('/api/admin/credentials', requireAdmin, (req, res) => {
-  const data = readCredentials();
-  res.json(data);
+app.get('/api/admin/credentials', requireAdmin, async (req, res) => {
+  try {
+    const data = await readCredentials();
+    res.json(data);
+  } catch (e) { res.status(500).json({ error: 'Server error' }); }
 });
 
 /* ===== ADMIN: ADD ===== */
-app.post('/api/admin/credentials', requireAdmin, (req, res) => {
-  const { name, issued, result, modules } = req.body;
-  if (!name || !issued || !result) {
-    return res.status(400).json({ error: 'name, issued, and result are required' });
-  }
-  const data = readCredentials();
-  const id = nextCredentialId(data.credentials);
-  const newCred = {
-    id,
-    name: name.trim(),
-    issued,
-    modules: modules || 8,
-    result
-  };
-  data.credentials.push(newCred);
-  writeCredentials(data);
-  res.status(201).json(newCred);
+app.post('/api/admin/credentials', requireAdmin, async (req, res) => {
+  try {
+    const { name, issued, result, modules } = req.body;
+    if (!name || !issued || !result) {
+      return res.status(400).json({ error: 'name, issued, and result are required' });
+    }
+    const data = await readCredentials();
+    const id = nextCredentialId(data.credentials);
+    const newCred = { id, name: name.trim(), issued, modules: modules || 8, result };
+    data.credentials.push(newCred);
+    await writeCredentials(data);
+    res.status(201).json(newCred);
+  } catch (e) { res.status(500).json({ error: 'Server error' }); }
 });
 
 /* ===== ADMIN: EDIT ===== */
-app.put('/api/admin/credentials/:id', requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const { name, issued, result, modules } = req.body;
-  const data = readCredentials();
-  const idx = data.credentials.findIndex(c => c.id === id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  data.credentials[idx] = {
-    ...data.credentials[idx],
-    ...(name    && { name: name.trim() }),
-    ...(issued  && { issued }),
-    ...(result  && { result }),
-    ...(modules && { modules })
-  };
-  writeCredentials(data);
-  res.json(data.credentials[idx]);
+app.put('/api/admin/credentials/:id', requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, issued, result, modules } = req.body;
+    const data = await readCredentials();
+    const idx = data.credentials.findIndex(c => c.id === id);
+    if (idx === -1) return res.status(404).json({ error: 'Not found' });
+    data.credentials[idx] = {
+      ...data.credentials[idx],
+      ...(name    && { name: name.trim() }),
+      ...(issued  && { issued }),
+      ...(result  && { result }),
+      ...(modules && { modules })
+    };
+    await writeCredentials(data);
+    res.json(data.credentials[idx]);
+  } catch (e) { res.status(500).json({ error: 'Server error' }); }
 });
 
 /* ===== ADMIN: DELETE ===== */
-app.delete('/api/admin/credentials/:id', requireAdmin, (req, res) => {
-  const { id } = req.params;
-  const data = readCredentials();
-  const idx = data.credentials.findIndex(c => c.id === id);
-  if (idx === -1) return res.status(404).json({ error: 'Not found' });
-  const deleted = data.credentials.splice(idx, 1)[0];
-  writeCredentials(data);
-  res.json({ deleted });
+app.delete('/api/admin/credentials/:id', requireAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await readCredentials();
+    const idx = data.credentials.findIndex(c => c.id === id);
+    if (idx === -1) return res.status(404).json({ error: 'Not found' });
+    const deleted = data.credentials.splice(idx, 1)[0];
+    await writeCredentials(data);
+    res.json({ deleted });
+  } catch (e) { res.status(500).json({ error: 'Server error' }); }
 });
 
 /* ===== SPA FALLBACK ===== */
