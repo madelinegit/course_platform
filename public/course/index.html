@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course &mdash; ANPL</title>
+  <link rel="stylesheet" href="/css/anpl.css">
+  <meta name="robots" content="noindex, nofollow">
+</head>
+<body>
+
+<div class="top-rule"></div>
+
+<nav class="nav scrolled">
+  <a href="/" class="nav-logo">ANPL <span>Course</span></a>
+  <div class="nav-spacer"></div>
+  <ul class="nav-links">
+    <li><span id="logout-btn" style="cursor:pointer;color:var(--ink-3);font-size:13px;display:none">Sign out</span></li>
+  </ul>
+</nav>
+
+<!-- ═══ PASSWORD SCREEN ═══ -->
+<div id="course-login" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h);">
+  <div style="width:100%;max-width:400px;padding:0 var(--pad-x);text-align:center;">
+    <div class="top-rule" style="width:80px;margin:0 auto 40px;"></div>
+    <span class="eyebrow">Student access</span>
+    <h2 style="margin-top:8px;margin-bottom:8px;font-size:36px;">Welcome.</h2>
+    <p style="color:var(--ink-3);font-size:15px;margin-bottom:36px;">Enter your course password to access all modules.</p>
+    <form id="login-form" style="text-align:left;">
+      <div class="form-group">
+        <label class="form-label" for="course-password">Course password</label>
+        <input type="password" id="course-password" class="form-input" placeholder="Enter your password" autofocus>
+      </div>
+      <p id="login-error" style="color:#FF7070;font-size:13px;margin-bottom:16px;display:none;"></p>
+      <button type="submit" class="btn btn-primary btn-lg">Enter course</button>
+    </form>
+    <p style="margin-top:20px;font-size:12px;color:var(--ink-3);">
+      Don&rsquo;t have the password? <a href="/#enroll" style="color:var(--gold);">Enroll here &rarr;</a>
+    </p>
+  </div>
+</div>
+
+<!-- ═══ COURSE HOME ═══ -->
+<div id="course-home" style="display:none;padding-top:var(--nav-h);">
+
+  <section class="section-sm" style="border-bottom:1px solid var(--border);">
+    <div class="container">
+      <span class="eyebrow">AI-Native Product Leadership</span>
+      <h1 style="margin-top:8px;font-size:clamp(32px,4vw,52px);">Welcome. You&rsquo;re in.</h1>
+      <p style="color:var(--ink-3);font-size:16px;margin-top:12px;max-width:560px;">
+        All 8 modules are unlocked and ready. Work at your own pace. Complete the capstone
+        to earn your ANPL certificate.
+      </p>
+      <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;">
+        <div style="font-size:13px;color:var(--ink-3);">
+          <span style="color:var(--gold);font-family:var(--font-serif);font-size:22px;">8</span> modules
+        </div>
+        <div style="font-size:13px;color:var(--ink-3);">
+          <span style="color:var(--gold);font-family:var(--font-serif);font-size:22px;">40+</span> video lessons
+        </div>
+        <div style="font-size:13px;color:var(--ink-3);">
+          <span style="color:var(--gold);font-family:var(--font-serif);font-size:22px;">120+</span> study hours
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+
+        <a href="/course/module-01" class="module-card">
+          <p class="module-card-num">01</p>
+          <span class="chip chip-foundations" style="margin-bottom:10px;">Foundations</span>
+          <p class="module-card-title">The shifting PM role in the agentic era</p>
+          <p class="module-card-meta">Weeks 1&ndash;2 &middot; 4 lessons &middot; 12 hrs</p>
+        </a>
+
+        <a href="/course/module-02" class="module-card">
+          <p class="module-card-num">02</p>
+          <span class="chip chip-foundations" style="margin-bottom:10px;">Foundations</span>
+          <p class="module-card-title">Mastering AI-assisted discovery</p>
+          <p class="module-card-meta">Weeks 3&ndash;4 &middot; 4 lessons &middot; 14 hrs</p>
+        </a>
+
+        <a href="/course/module-03" class="module-card">
+          <p class="module-card-num">03</p>
+          <span class="chip chip-foundations" style="margin-bottom:10px;">Foundations</span>
+          <p class="module-card-title">AI-native roadmapping &amp; prioritization</p>
+          <p class="module-card-meta">Weeks 5&ndash;6 &middot; 4 lessons &middot; 14 hrs</p>
+        </a>
+
+        <a href="/course/module-04" class="module-card">
+          <p class="module-card-num">04</p>
+          <span class="chip chip-technologies" style="margin-bottom:10px;">Technologies</span>
+          <p class="module-card-title">AI technologies every PM must understand</p>
+          <p class="module-card-meta">Weeks 7&ndash;9 &middot; 5 lessons &middot; 18 hrs</p>
+        </a>
+
+        <a href="/course/module-05" class="module-card">
+          <p class="module-card-num">05</p>
+          <span class="chip chip-technologies" style="margin-bottom:10px;">Technologies</span>
+          <p class="module-card-title">Prompt engineering for product managers</p>
+          <p class="module-card-meta">Weeks 10&ndash;11 &middot; 4 lessons &middot; 12 hrs</p>
+        </a>
+
+        <a href="/course/module-06" class="module-card">
+          <p class="module-card-num">06</p>
+          <span class="chip chip-human" style="margin-bottom:10px;">Human skills</span>
+          <p class="module-card-title">Ethics, trust &amp; responsible AI product design</p>
+          <p class="module-card-meta">Weeks 12&ndash;13 &middot; 4 lessons &middot; 14 hrs</p>
+        </a>
+
+        <a href="/course/module-07" class="module-card">
+          <p class="module-card-num">07</p>
+          <span class="chip chip-human" style="margin-bottom:10px;">Human skills</span>
+          <p class="module-card-title">Organizational influence &amp; leading AI transformation</p>
+          <p class="module-card-meta">Weeks 14&ndash;15 &middot; 4 lessons &middot; 14 hrs</p>
+        </a>
+
+        <a href="/course/module-08" class="module-card">
+          <p class="module-card-num">08</p>
+          <span class="chip chip-capstone" style="margin-bottom:10px;">Capstone</span>
+          <p class="module-card-title">Capstone: Your AI PM Reputation Kit</p>
+          <p class="module-card-meta">Weeks 16&ndash;18 &middot; 4 lessons &middot; 22 hrs</p>
+        </a>
+
+      </div>
+
+      <!-- Capstone info -->
+      <div style="margin-top:48px;padding:28px 32px;background:var(--dark-2);border:1px solid var(--border);border-radius:3px;border-left:3px solid var(--gold);">
+        <p style="font-family:var(--font-serif);font-size:22px;color:var(--white);margin-bottom:10px;">Earning your certificate</p>
+        <p style="font-size:14px;color:var(--ink-3);line-height:1.75;margin-bottom:16px;">
+          Complete all 8 modules and submit three capstone artifacts to earn your ANPL credential:
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="include-item">Artifact 1: Personal AI Audit (one-pager)</div>
+          <div class="include-item">Artifact 2: One real, tested prompt for your actual job</div>
+          <div class="include-item">Artifact 3: AI Meeting One-Pager</div>
+        </div>
+        <p style="font-size:13px;color:var(--ink-3);margin-top:16px;">
+          Email all three artifacts to <span style="color:var(--gold);">hello@anpl.co</span> — Madeline will review and issue your credential.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /course-home -->
+
+<script src="/js/auth.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loginEl  = document.getElementById('course-login');
+  const homeEl   = document.getElementById('course-home');
+  const logoutEl = document.getElementById('logout-btn');
+
+  function showHome() {
+    loginEl.style.display = 'none';
+    homeEl.style.display  = 'block';
+    if (logoutEl) logoutEl.style.display = 'inline';
+  }
+
+  if (checkCourseAuth()) {
+    showHome();
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const pw  = document.getElementById('course-password').value;
+    const err = document.getElementById('login-error');
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Checking…';
+    btn.disabled = true;
+
+    const result = await courseLogin(pw);
+    if (result.ok) {
+      showHome();
+    } else {
+      err.textContent = result.error;
+      err.style.display = 'block';
+      btn.textContent = 'Enter course';
+      btn.disabled = false;
+    }
+  });
+
+  if (logoutEl) {
+    logoutEl.addEventListener('click', courseLogout);
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Credential &mdash; ANPL</title>
+  <meta name="description" content="Verify an ANPL AI-Native Product Leadership certificate by entering the credential ID.">
+  <link rel="stylesheet" href="/css/anpl.css">
+</head>
+<body>
+
+<div class="top-rule"></div>
+
+<nav class="nav" id="main-nav">
+  <a href="/" class="nav-logo">ANPL</a>
+  <div class="nav-spacer"></div>
+  <ul class="nav-links">
+    <li><a href="/curriculum">Curriculum</a></li>
+    <li><a href="#enroll" class="btn btn-primary btn-sm">Enroll now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section style="padding:calc(var(--nav-h) + 80px) 0 72px;background:var(--dark);">
+  <div class="container-sm text-center">
+    <span class="eyebrow reveal">Credential verification</span>
+    <h1 class="reveal" style="transition-delay:0.08s">Verify a credential.</h1>
+    <p class="reveal" style="font-size:16px;color:var(--ink-3);margin-top:16px;transition-delay:0.16s">
+      Every ANPL certificate carries a unique credential ID that can be verified here.
+      Paste the ID from a graduate&rsquo;s LinkedIn profile or certificate.
+    </p>
+
+    <div class="verify-input-wrap reveal" style="transition-delay:0.24s">
+      <input
+        type="text"
+        id="cred-input"
+        class="form-input"
+        placeholder="e.g. ANPL-2025-0042"
+        autocomplete="off"
+        spellcheck="false"
+        style="font-family:var(--font-mono);letter-spacing:0.5px;"
+      >
+      <button class="btn btn-primary" id="verify-btn">Verify</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT AREA -->
+<section style="padding:0 0 80px;">
+  <div class="container-sm">
+    <div id="verify-result"></div>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<section class="section-sm" style="background:var(--dark-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container text-center reveal">
+    <span class="eyebrow">Program at a glance</span>
+    <div class="stats-row" style="max-width:640px;margin:24px auto 0;">
+      <div class="stat-item">
+        <span class="stat-value" id="stat-graduates">1</span>
+        <span class="stat-label">Graduates</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">2025</span>
+        <span class="stat-label">Year launched</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">8</span>
+        <span class="stat-label">Modules</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-sm">
+  <div class="container-sm">
+    <div class="section-head text-center reveal">
+      <span class="eyebrow">About ANPL credentials</span>
+      <h3>A certificate that means something.</h3>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;">
+      <div class="card reveal" style="transition-delay:0.05s;text-align:center;">
+        <p style="font-size:28px;color:var(--gold);margin-bottom:12px;">&#9670;</p>
+        <p style="font-family:var(--font-serif);font-size:18px;color:var(--white);margin-bottom:8px;">Unique ID</p>
+        <p style="font-size:13px;color:var(--ink-3);">Every graduate receives a unique credential in the format ANPL-YYYY-XXXX</p>
+      </div>
+      <div class="card reveal" style="transition-delay:0.10s;text-align:center;">
+        <p style="font-size:28px;color:var(--gold);margin-bottom:12px;">&#10003;</p>
+        <p style="font-family:var(--font-serif);font-size:18px;color:var(--white);margin-bottom:8px;">Human-verified</p>
+        <p style="font-size:13px;color:var(--ink-3);">Certificates are awarded only after capstone artifacts are reviewed by the instructor</p>
+      </div>
+      <div class="card reveal" style="transition-delay:0.15s;text-align:center;">
+        <p style="font-size:28px;color:var(--gold);margin-bottom:12px;">&#9679;</p>
+        <p style="font-family:var(--font-serif);font-size:18px;color:var(--white);margin-bottom:8px;">Permanently verifiable</p>
+        <p style="font-size:13px;color:var(--ink-3);">Verification URLs can be linked directly from LinkedIn Licenses &amp; Certifications</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="container" style="padding-top:0;padding-bottom:0">
+  <div class="footer">
+    <a href="/" class="nav-logo" style="font-size:22px;letter-spacing:5px">ANPL</a>
+    <div class="footer-right">Lead AI. Don&rsquo;t Chase It.</div>
+  </div>
+</footer>
+
+<!-- CERTIFICATE MODAL -->
+<div class="modal-overlay" id="cert-modal">
+  <div class="modal" style="padding:32px;max-width:820px;width:95vw;">
+    <button class="modal-close" id="cert-modal-close">&times;</button>
+    <div id="cert-svg-container" style="overflow-x:auto;"></div>
+    <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="btn-download-svg">&#8595; Download SVG</button>
+      <button class="btn btn-ghost"   id="btn-download-png">&#8595; Download PNG</button>
+      <button class="btn btn-ghost"   id="btn-copy-link">&#128279; Copy verification link</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/certificate.js"></script>
+<script src="/js/verify.js"></script>
+</body>
+</html>
