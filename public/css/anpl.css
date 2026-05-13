@@ -160,12 +160,13 @@ em, .italic-gold { font-style: italic; color: var(--gold-light); }
 }
 .btn-primary {
   background: var(--gold);
-  color: #0B0800;
+  color: #0D0D0B;
 }
 .btn-primary:hover {
-  background: var(--gold-light);
+  background: var(--white);
+  color: #0D0D0B;
   transform: translateY(-1px);
-  box-shadow: 0 8px 32px rgba(196,150,58,0.25);
+  box-shadow: 0 8px 32px rgba(240,230,211,0.15);
 }
 .btn-ghost {
   background: transparent;
@@ -174,7 +175,8 @@ em, .italic-gold { font-style: italic; color: var(--gold-light); }
 }
 .btn-ghost:hover {
   border-color: var(--gold);
-  color: var(--gold-light);
+  color: var(--white);
+  background: rgba(240,230,211,0.06);
 }
 .btn-sm { padding: 8px 18px; font-size: 12px; }
 .btn-lg { padding: 16px 36px; font-size: 14px; letter-spacing: 0.8px; width: 100%; justify-content: center; }
