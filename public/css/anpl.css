@@ -10,14 +10,14 @@
   --dark:        #090907;
   --dark-2:      #141412;
   --dark-3:      #1E1E1B;
-  --gold:        #C4963A;
-  --gold-light:  #E8C97A;
-  --gold-dim:    #8A6420;
+  --gold:        #C9A87C;
+  --gold-light:  #E4D0AA;
+  --gold-dim:    #8A7055;
   --white:       #FDFCF8;
   --surface:     #F7F5EF;
   --ink-3:       #7A7A72;
   --ink-4:       #B0B0A6;
-  --border:      rgba(196,150,58,0.18);
+  --border:      rgba(201,168,124,0.18);
 
   --font-serif:  'Cormorant Garamond', Georgia, serif;
   --font-sans:   'Instrument Sans', system-ui, sans-serif;
