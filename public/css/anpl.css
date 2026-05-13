@@ -3,23 +3,23 @@
    AI-Native Product Leadership · Lead AI. Don't Chase It.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ===== TOKENS ===== */
 :root {
   --dark:        #090907;
   --dark-2:      #141412;
   --dark-3:      #1E1E1B;
-  --gold:        #C9A87C;
-  --gold-light:  #E4D0AA;
-  --gold-dim:    #8A7055;
+  --gold:        #F0E6D3;
+  --gold-light:  #F7F0E6;
+  --gold-dim:    #B8A898;
   --white:       #FDFCF8;
   --surface:     #F7F5EF;
   --ink-3:       #7A7A72;
   --ink-4:       #B0B0A6;
-  --border:      rgba(201,168,124,0.18);
+  --border:      rgba(240,230,211,0.18);
 
-  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --font-serif:  'Fraunces', Georgia, serif;
   --font-sans:   'Instrument Sans', system-ui, sans-serif;
   --font-mono:   'JetBrains Mono', 'Courier New', monospace;
 
@@ -52,10 +52,10 @@ input, select, textarea { font-family: var(--font-sans); }
   height: 2px;
   width: 100%;
   background: linear-gradient(90deg,
-    rgba(138,100,32,0.1) 0%,
-    #C4963A 55%,
-    #E8C97A 80%,
-    #C4963A 100%
+    rgba(240,230,211,0.1) 0%,
+    #F0E6D3 55%,
+    #F7F0E6 80%,
+    #F0E6D3 100%
   );
   flex-shrink: 0;
 }
@@ -366,7 +366,7 @@ em, .italic-gold { font-style: italic; color: var(--gold-light); }
 .price-card-rule {
   height: 2px;
   background: linear-gradient(90deg,
-    rgba(138,100,32,0.1) 0%, #C4963A 55%, #E8C97A 80%, #C4963A 100%
+    rgba(240,230,211,0.1) 0%, #F0E6D3 55%, #F7F0E6 80%, #F0E6D3 100%
   );
 }
 .price-card-body { padding: 32px 36px; }
