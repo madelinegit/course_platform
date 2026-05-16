@@ -75,33 +75,53 @@ function generateCertificateSVG({ name, issued, result, id }) {
     font-family="'Instrument Sans', sans-serif" font-size="10"
     letter-spacing="2.5" fill="#8A7A6A">PROFESSIONAL CERTIFICATION &#xB7; 8 MODULES</text>
 
-  <!-- Bottom ornamental rule -->
+  <!-- Ornamental rule above signatures -->
   <line x1="60" y1="396" x2="720" y2="396" stroke="#C9A87C" stroke-width="0.5" opacity="0.25"/>
   <line x1="60" y1="399" x2="720" y2="399" stroke="#C9A87C" stroke-width="0.5" opacity="0.5"/>
 
-  <!-- Bottom row: labels -->
-  <text x="195" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
-    letter-spacing="2.5" fill="#8A6A2A">RESULT</text>
-  <text x="390" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
-    letter-spacing="2.5" fill="#8A6A2A">ISSUED</text>
-  <text x="585" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
-    letter-spacing="2.5" fill="#8A6A2A">CREDENTIAL ID</text>
+  <!-- Seal circle -->
+  <circle cx="390" cy="448" r="36" fill="none" stroke="#C9A87C" stroke-width="1"/>
+  <circle cx="390" cy="448" r="30" fill="none" stroke="#C9A87C" stroke-width="0.4" opacity="0.5"/>
+  <text x="390" y="443" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="11" font-weight="500"
+    letter-spacing="1" fill="#8A6A2A">ANPL</text>
+  <text x="390" y="457" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="7" font-weight="600"
+    letter-spacing="2" fill="#8A6A2A">CERTIFIED</text>
 
-  <!-- Bottom row: values -->
-  <text x="195" y="450" text-anchor="middle"
-    font-family="'Fraunces', Georgia, serif" font-size="15" fill="${resultColor}">${escapeXML(result)}</text>
-  <text x="390" y="450" text-anchor="middle"
-    font-family="'Fraunces', Georgia, serif" font-size="15" fill="#2A2A24">${escapeXML(issued)}</text>
-  <text x="585" y="450" text-anchor="middle"
-    font-family="'JetBrains Mono', monospace" font-size="12" fill="#8A6A2A">${escapeXML(id)}</text>
+  <!-- Left signature -->
+  <text x="175" y="430" text-anchor="middle"
+    font-family="Georgia, serif" font-size="18" font-style="italic"
+    fill="#2A2A24">Madeline Gall</text>
+  <line x1="90" y1="437" x2="260" y2="437" stroke="#2A2A24" stroke-width="0.75" opacity="0.4"/>
+  <text x="175" y="452" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8.5" font-weight="500"
+    letter-spacing="1.5" fill="#8A7A6A">PROGRAM DIRECTOR</text>
+
+  <!-- Right signature -->
+  <text x="605" y="430" text-anchor="middle"
+    font-family="Georgia, serif" font-size="18" font-style="italic"
+    fill="#2A2A24">M. Gall</text>
+  <line x1="520" y1="437" x2="690" y2="437" stroke="#2A2A24" stroke-width="0.75" opacity="0.4"/>
+  <text x="605" y="452" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8.5" font-weight="500"
+    letter-spacing="1.5" fill="#8A7A6A">LEAD INSTRUCTOR</text>
+
+  <!-- Result + ID bottom strip -->
+  <line x1="60" y1="468" x2="720" y2="468" stroke="#C9A87C" stroke-width="0.4" opacity="0.3"/>
+  <text x="175" y="484" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8.5" font-weight="600"
+    letter-spacing="2" fill="#8A6A2A">RESULT: <tspan fill="${resultColor}">${escapeXML(result)}</tspan></text>
+  <text x="390" y="484" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8.5" font-weight="600"
+    letter-spacing="2" fill="#8A6A2A">ISSUED: <tspan fill="#2A2A24">${escapeXML(issued)}</tspan></text>
+  <text x="605" y="484" text-anchor="middle"
+    font-family="'JetBrains Mono', monospace" font-size="9" fill="#8A6A2A">${escapeXML(id)}</text>
 
   <!-- Verify URL -->
-  <text x="390" y="506" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="8.5"
-    letter-spacing="1.5" fill="#B0A090">VERIFY AT ${domain.toUpperCase()}/VERIFY &#xB7; LEAD AI. DON&#x27;T CHASE IT.</text>
+  <text x="390" y="514" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8"
+    letter-spacing="1.5" fill="#B0A090">VERIFY AT ${domain.toUpperCase()}/VERIFY</text>
 </svg>`;
 }
 
