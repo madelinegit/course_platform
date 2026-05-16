@@ -93,7 +93,7 @@
             </div>
 
             <div class="price-actions">
-              <a href="#enroll" class="btn btn-primary btn-lg">Enroll now on Gumroad</a>
+              <button onclick="startCheckout(this)" class="btn btn-primary btn-lg">Enroll now — $297</button>
               <a href="#curriculum" class="btn btn-ghost btn-lg">Preview the curriculum &rarr;</a>
             </div>
 
@@ -607,9 +607,9 @@
       how that happens&mdash;or just react to it.
     </p>
     <div class="reveal" style="transition-delay:0.24s">
-      <a href="#enroll" class="btn btn-primary btn-lg" style="display:inline-flex;width:auto;padding:18px 48px;font-size:15px;">
+      <button onclick="startCheckout(this)" class="btn btn-primary btn-lg" style="display:inline-flex;width:auto;padding:18px 48px;font-size:15px;">
         Enroll for $297
-      </a>
+      </button>
     </div>
     <p class="cta-note reveal" style="transition-delay:0.3s">
       30-day money-back guarantee &middot; Lifetime access &middot; All future updates included
@@ -656,6 +656,28 @@
       });
     });
   });
+</script>
+<script>
+async function startCheckout(btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Redirecting…';
+  btn.disabled = true;
+  try {
+    const res  = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      btn.textContent = orig;
+      btn.disabled = false;
+      alert('Could not start checkout. Please try again.');
+    }
+  } catch {
+    btn.textContent = orig;
+    btn.disabled = false;
+    alert('Connection error. Please try again.');
+  }
+}
 </script>
 </body>
 </html>

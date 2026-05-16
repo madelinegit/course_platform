@@ -1,7 +1,8 @@
 /* ANPL Auth Utilities */
 
-const COURSE_KEY = 'anpl_course_access';
-const ADMIN_KEY  = 'anpl_admin';
+const COURSE_KEY  = 'anpl_course_access';
+const ADMIN_KEY   = 'anpl_admin';
+const STUDENT_KEY = 'anpl_student_token';
 
 function checkCourseAuth() {
   return localStorage.getItem(COURSE_KEY) === 'true';
@@ -52,8 +53,49 @@ async function adminLogin(password) {
   }
 }
 
+/* ── Student token auth ── */
+
+function getStudentToken() {
+  // Check URL first, then localStorage
+  const params = new URLSearchParams(window.location.search);
+  return params.get('token') || localStorage.getItem(STUDENT_KEY);
+}
+
+function setStudentToken(token) {
+  localStorage.setItem(STUDENT_KEY, token);
+}
+
+function clearStudentToken() {
+  localStorage.removeItem(STUDENT_KEY);
+}
+
+async function validateStudentToken(token) {
+  try {
+    const res = await fetch('/api/student/me', {
+      headers: { 'x-student-token': token }
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+async function markModuleComplete(moduleId) {
+  const token = getStudentToken();
+  if (!token) return;
+  try {
+    await fetch('/api/student/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-student-token': token },
+      body: JSON.stringify({ module: moduleId, completed: true }),
+    });
+  } catch {}
+}
+
 function courseLogout() {
   localStorage.removeItem(COURSE_KEY);
+  clearStudentToken();
   window.location.href = '/course/';
 }
 

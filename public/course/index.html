@@ -19,24 +19,17 @@
   </ul>
 </nav>
 
-<!-- ═══ PASSWORD SCREEN ═══ -->
+<!-- ═══ ACCESS SCREEN ═══ -->
 <div id="course-login" style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h);">
   <div style="width:100%;max-width:400px;padding:0 var(--pad-x);text-align:center;">
     <div class="top-rule" style="width:80px;margin:0 auto 40px;"></div>
     <span class="eyebrow">Student access</span>
     <h2 style="margin-top:8px;margin-bottom:8px;font-size:36px;">Welcome.</h2>
-    <p style="color:var(--ink-3);font-size:15px;margin-bottom:36px;">Enter your course password to access all modules.</p>
-    <form id="login-form" style="text-align:left;">
-      <div class="form-group">
-        <label class="form-label" for="course-password">Course password</label>
-        <input type="password" id="course-password" class="form-input" placeholder="Enter your password" autofocus>
-      </div>
-      <p id="login-error" style="color:#FF7070;font-size:13px;margin-bottom:16px;display:none;"></p>
-      <button type="submit" class="btn btn-primary btn-lg">Enter course</button>
-    </form>
-    <p style="margin-top:20px;font-size:12px;color:var(--ink-3);">
-      Don&rsquo;t have the password? <a href="/#enroll" style="color:var(--gold);">Enroll here &rarr;</a>
+    <p style="color:var(--ink-3);font-size:15px;margin-bottom:36px;">Use the personal access link from your enrollment email.</p>
+    <p style="font-size:13px;color:var(--ink-3);">
+      Don&rsquo;t have access yet? <a href="/#enroll" style="color:var(--gold);">Enroll here &rarr;</a>
     </p>
+    <p style="margin-top:12px;font-size:12px;color:var(--ink-4);">Lost your link? Email <a href="mailto:hello@anpl.co" style="color:var(--gold);">hello@anpl.co</a></p>
   </div>
 </div>
 
@@ -150,39 +143,39 @@
 
 <script src="/js/auth.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const loginEl  = document.getElementById('course-login');
   const homeEl   = document.getElementById('course-home');
   const logoutEl = document.getElementById('logout-btn');
 
-  function showHome() {
+  function showHome(student) {
     loginEl.style.display = 'none';
     homeEl.style.display  = 'block';
     if (logoutEl) logoutEl.style.display = 'inline';
-  }
-
-  if (checkCourseAuth()) {
-    showHome();
-  }
-
-  document.getElementById('login-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const pw  = document.getElementById('course-password').value;
-    const err = document.getElementById('login-error');
-    const btn = e.target.querySelector('button');
-    btn.textContent = 'Checking…';
-    btn.disabled = true;
-
-    const result = await courseLogin(pw);
-    if (result.ok) {
-      showHome();
-    } else {
-      err.textContent = result.error;
-      err.style.display = 'block';
-      btn.textContent = 'Enter course';
-      btn.disabled = false;
+    if (student && student.name) {
+      const h1 = homeEl.querySelector('h1');
+      if (h1) h1.textContent = `Welcome back, ${student.name.split(' ')[0]}.`;
     }
-  });
+  }
+
+  // Token in URL takes priority — store it and clean the URL
+  const params = new URLSearchParams(window.location.search);
+  const urlToken = params.get('token');
+  if (urlToken) {
+    setStudentToken(urlToken);
+    history.replaceState({}, '', '/course');
+  }
+
+  const token = getStudentToken();
+  if (token) {
+    const student = await validateStudentToken(token);
+    if (student) {
+      showHome(student);
+      return;
+    } else {
+      clearStudentToken();
+    }
+  }
 
   if (logoutEl) {
     logoutEl.addEventListener('click', courseLogout);
