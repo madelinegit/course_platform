@@ -1,114 +1,107 @@
 /* ANPL Certificate SVG Generator */
 
 function generateCertificateSVG({ name, issued, result, id }) {
-  const resultColor = result === 'Distinction' ? '#F0E6D3' : '#B0B0A6';
+  const resultColor = result === 'Distinction' ? '#8A6A2A' : '#7A7A72';
   const domain = window.location.hostname || 'anpl.co';
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="780" height="540" viewBox="0 0 780 540" style="font-family: Georgia, serif;">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="780" height="540" viewBox="0 0 780 540">
   <defs>
-    <linearGradient id="ruleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="rgba(240,230,211,0.1)"/>
-      <stop offset="55%"  stop-color="#F0E6D3"/>
-      <stop offset="80%"  stop-color="#F7F0E6"/>
-      <stop offset="100%" stop-color="#F0E6D3"/>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#C9A87C" stop-opacity="0.4"/>
+      <stop offset="50%"  stop-color="#C9A87C"/>
+      <stop offset="100%" stop-color="#C9A87C" stop-opacity="0.4"/>
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FDFAF3"/>
+      <stop offset="100%" stop-color="#F5EFE0"/>
+    </linearGradient>
   </defs>
 
-  <!-- Background -->
-  <rect width="780" height="540" fill="#0E0E0C"/>
+  <!-- Parchment background -->
+  <rect width="780" height="540" fill="url(#bgGrad)"/>
 
-  <!-- Outer border -->
-  <rect x="14" y="14" width="752" height="512" rx="3" fill="none" stroke="#F0E6D3" stroke-width="0.5"/>
+  <!-- Outer border double line -->
+  <rect x="16" y="16" width="748" height="508" rx="2" fill="none" stroke="#C9A87C" stroke-width="1.5"/>
+  <rect x="22" y="22" width="736" height="496" rx="1" fill="none" stroke="#C9A87C" stroke-width="0.5"/>
 
-  <!-- Inner border -->
-  <rect x="24" y="24" width="732" height="492" rx="2" fill="none" stroke="#F0E6D3" stroke-width="0.3" opacity="0.2"/>
+  <!-- Corner ornaments -->
+  <path d="M16,50 L16,16 L50,16" stroke="#C9A87C" stroke-width="1.5" fill="none"/>
+  <path d="M730,16 L764,16 L764,50" stroke="#C9A87C" stroke-width="1.5" fill="none"/>
+  <path d="M16,490 L16,524 L50,524" stroke="#C9A87C" stroke-width="1.5" fill="none"/>
+  <path d="M730,524 L764,524 L764,490" stroke="#C9A87C" stroke-width="1.5" fill="none"/>
 
-  <!-- Top rule -->
-  <rect x="0" y="0" width="780" height="2" fill="url(#ruleGrad)"/>
+  <!-- Top ornamental rule -->
+  <line x1="60" y1="72" x2="720" y2="72" stroke="#C9A87C" stroke-width="0.5" opacity="0.5"/>
+  <line x1="60" y1="75" x2="720" y2="75" stroke="#C9A87C" stroke-width="0.5" opacity="0.25"/>
 
-  <!-- Corner ornaments: top-left (dim) -->
-  <path d="M38,38 L38,58 M38,38 L58,38" stroke="#F0E6D3" stroke-width="1" fill="none" opacity="0.07"/>
-  <!-- top-right (bright) -->
-  <path d="M742,38 L742,58 M742,38 L722,38" stroke="#F0E6D3" stroke-width="1" fill="none" opacity="0.25"/>
-  <!-- bottom-left (dim) -->
-  <path d="M38,502 L38,482 M38,502 L58,502" stroke="#F0E6D3" stroke-width="1" fill="none" opacity="0.07"/>
-  <!-- bottom-right (bright) -->
-  <path d="M742,502 L742,482 M742,502 L722,502" stroke="#F0E6D3" stroke-width="1" fill="none" opacity="0.25"/>
-
-  <!-- Eyebrow -->
-  <text x="390" y="94" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="10" font-weight="500"
-    letter-spacing="3" fill="#B8A898">AI-NATIVE PRODUCT LEADERSHIP</text>
+  <!-- Institution name -->
+  <text x="390" y="108" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="10" font-weight="600"
+    letter-spacing="4" fill="#8A6A2A">AI-NATIVE PRODUCT LEADERSHIP</text>
 
   <!-- ANPL Wordmark -->
-  <text x="390" y="148" text-anchor="middle"
-    font-family="'Fraunces', Georgia, serif" font-size="48" font-weight="300"
-    letter-spacing="8" fill="#F7F0E6" filter="url(#glow)">ANPL</text>
+  <text x="390" y="158" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="52" font-weight="400"
+    letter-spacing="10" fill="#1A1A14">ANPL</text>
 
-  <!-- Rule under wordmark -->
-  <line x1="240" y1="162" x2="540" y2="162" stroke="#F0E6D3" stroke-width="0.5" opacity="0.4"/>
+  <!-- Subtitle rule -->
+  <line x1="200" y1="172" x2="580" y2="172" stroke="#C9A87C" stroke-width="0.75" opacity="0.6"/>
 
   <!-- This certifies that -->
-  <text x="390" y="200" text-anchor="middle"
-    font-family="Georgia, serif" font-size="13" font-style="italic"
-    letter-spacing="2" fill="#B8A898">This certifies that</text>
+  <text x="390" y="210" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="14" font-style="italic"
+    fill="#5A4A3A">This certifies that</text>
 
   <!-- Graduate name -->
-  <text x="390" y="258" text-anchor="middle"
-    font-family="'Fraunces', Georgia, serif" font-size="44" font-weight="400"
-    letter-spacing="1" fill="#FDFCF8">${escapeXML(name)}</text>
+  <text x="390" y="268" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="46" font-weight="400"
+    fill="#0D0D0A">${escapeXML(name)}</text>
 
   <!-- Name underline -->
-  <line x1="180" y1="272" x2="600" y2="272" stroke="#F0E6D3" stroke-width="0.5" opacity="0.4"/>
+  <line x1="160" y1="282" x2="620" y2="282" stroke="#C9A87C" stroke-width="0.75" opacity="0.5"/>
 
-  <!-- Has successfully completed -->
-  <text x="390" y="306" text-anchor="middle"
-    font-family="Georgia, serif" font-size="12" font-style="italic"
-    letter-spacing="1.5" fill="#7A7A72">has successfully completed</text>
+  <!-- Body text -->
+  <text x="390" y="316" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="13" font-style="italic"
+    fill="#5A4A3A">has successfully completed all requirements of the</text>
 
   <!-- Program name -->
-  <text x="390" y="346" text-anchor="middle"
-    font-family="Georgia, serif" font-size="22" font-weight="600"
-    letter-spacing="1" fill="#F0E6D3">Lead AI. Don&#x27;t Chase It.</text>
+  <text x="390" y="352" text-anchor="middle"
+    font-family="'Fraunces', Georgia, serif" font-size="20" font-weight="500"
+    letter-spacing="0.5" fill="#1A1A14">AI-Native Product Leadership Certification</text>
 
   <!-- Program subtitle -->
-  <text x="390" y="370" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="11"
-    letter-spacing="2" fill="#B0B0A6">PROFESSIONAL CERTIFICATION PROGRAM &#xB7; 8 MODULES</text>
+  <text x="390" y="374" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="10"
+    letter-spacing="2.5" fill="#8A7A6A">PROFESSIONAL CERTIFICATION &#xB7; 8 MODULES</text>
 
-  <!-- Horizontal rule -->
-  <line x1="100" y1="392" x2="680" y2="392" stroke="#F0E6D3" stroke-width="0.4" opacity="0.25"/>
+  <!-- Bottom ornamental rule -->
+  <line x1="60" y1="396" x2="720" y2="396" stroke="#C9A87C" stroke-width="0.5" opacity="0.25"/>
+  <line x1="60" y1="399" x2="720" y2="399" stroke="#C9A87C" stroke-width="0.5" opacity="0.5"/>
 
   <!-- Bottom row: labels -->
   <text x="195" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="10" font-weight="500"
-    letter-spacing="2" fill="#B8A898">RESULT</text>
+    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
+    letter-spacing="2.5" fill="#8A6A2A">RESULT</text>
   <text x="390" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="10" font-weight="500"
-    letter-spacing="2" fill="#B8A898">ISSUED</text>
+    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
+    letter-spacing="2.5" fill="#8A6A2A">ISSUED</text>
   <text x="585" y="428" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="10" font-weight="500"
-    letter-spacing="2" fill="#B8A898">CREDENTIAL ID</text>
+    font-family="'Instrument Sans', sans-serif" font-size="9" font-weight="600"
+    letter-spacing="2.5" fill="#8A6A2A">CREDENTIAL ID</text>
 
   <!-- Bottom row: values -->
   <text x="195" y="450" text-anchor="middle"
-    font-family="Georgia, serif" font-size="14" fill="${resultColor}">${escapeXML(result)}</text>
+    font-family="'Fraunces', Georgia, serif" font-size="15" fill="${resultColor}">${escapeXML(result)}</text>
   <text x="390" y="450" text-anchor="middle"
-    font-family="Georgia, serif" font-size="14" fill="#F7F5EF">${escapeXML(issued)}</text>
+    font-family="'Fraunces', Georgia, serif" font-size="15" fill="#2A2A24">${escapeXML(issued)}</text>
   <text x="585" y="450" text-anchor="middle"
-    font-family="'JetBrains Mono', monospace" font-size="13" fill="#F0E6D3">${escapeXML(id)}</text>
-
-  <!-- Bottom rule -->
-  <rect x="0" y="480" width="780" height="2" fill="url(#ruleGrad)"/>
+    font-family="'JetBrains Mono', monospace" font-size="12" fill="#8A6A2A">${escapeXML(id)}</text>
 
   <!-- Verify URL -->
-  <text x="390" y="505" text-anchor="middle"
-    font-family="'Instrument Sans', sans-serif" font-size="9"
-    letter-spacing="2" fill="#4A4A42">VERIFY AT ${domain.toUpperCase()}/VERIFY &#xB7; LEAD AI. DON&#x27;T CHASE IT.</text>
+  <text x="390" y="506" text-anchor="middle"
+    font-family="'Instrument Sans', sans-serif" font-size="8.5"
+    letter-spacing="1.5" fill="#B0A090">VERIFY AT ${domain.toUpperCase()}/VERIFY &#xB7; LEAD AI. DON&#x27;T CHASE IT.</text>
 </svg>`;
 }
 
